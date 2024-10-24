@@ -1,19 +1,16 @@
-# MRM: radar dataset for micro-motion targets.
+# IMD: ISAR dataset for micro-motion targets.
 
-> **Warning**❗:  This repository is still under construction, as the corresponding paper is still under submission. The uploaded code is not yet complete, and we are still performing final validation and testing. The dataset upload is ongoing, and we are currently searching for a suitable dataport, as we require 2TB of storage. We welcome any related inquiries.
+> **Warning**❗:  This repository is still under construction, as the corresponding paper is still under submission. The uploaded code is not yet complete, and we are still performing final validation and testing. 
 >
 > TODO: 
 >
-> - add rotated figure.
 > - fix plot ticks.
-> - Electromagnetic simulation part.
 > - experiment example guide.
 > - code validation & upload.
-> - find dataport
 
 ## Introduction
 
-The MRM dataset is a radar dataset generated through simulation. It features a scenario where a fully-polarized ISAR radar is used to track and image space micro-motion targets for classification. Consequently, it includes wideband and narrowband radar echoes under full polarization, with an observation time of 2 seconds.
+The IMD dataset is a radar dataset generated through simulation. It features a scenario where a fully-polarized ISAR radar is used to track and image space micro-motion targets for classification. Consequently, it includes wideband and narrowband radar echoes under full polarization, with an observation time of 2 seconds.
 
 The purpose of creating this dataset is straightforward: existing research does not make their datasets publicly available, and it is challenging to obtain these datasets by contacting the authors of the relevant papers. Of course, it is possible to perform simulations independently, but the details of the simulations can lead to significant differences in the data, making meaningful comparisons impossible. Moreover, electromagnetic simulations are highly time-consuming, and we don't want any researchers to waste their time on these tasks.
 
@@ -26,11 +23,19 @@ This dataset (and the additional versions it includes) can be applied to a varie
 
 Of course, these research directions are just broad summaries. Various detailed studies, such as exploring effective feature fusion methods, investigating polarization data fusion for recognition, extracting micro-motion curves, and experimenting with different radar signal processing techniques, can all make use of this dataset.
 
-The structure of the data in the dataset and its application methods will be explained with simple guides and code examples in the following sections. For more details, please refer to the full text of the paper.
+## Overall workflow
+
+The most commonly used method for dataset construction in existing papers is similar to the process shown in the following figure, which is clipped from [[4\]](https://ieeexplore.ieee.org/document/10431715/). Generally, the process is divided into three main steps: static electromagnetic calculations, generating dynamic aspect angle sequences (also referred to as attitude sequences), and producing echoes using interpolation functions. In these experiments, the sampling interval for static electromagnetic calculations is typically set to 0.1 (though 0.2 is also used in some cases). The target's motion trajectory varies, including static, linear motion, and ballistic motion. The interpolation functions used are often not clearly described in the papers. These inconsistencies undoubtedly increase the difficulty of reproducing the experiments, not to mention that electromagnetic simulations are already extremely time-consuming tasks.
+
+![image-20241023175650502](C:\Users\cherium\AppData\Roaming\Typora\typora-user-images\image-20241023175650502.png)
+
+In this project, we directly provide [fully polarized electromagnetic simulation data](https://figshare.com/articles/dataset/Static_electric_field_data_of_four_types_of_targets_/27247074?file=49844442) based on the physical optics (PO) method, as well as [a dataset of aspect angle sequences](https://figshare.com/articles/dataset/Aspect_angle_sequences_of_ballistic_conical_targets_/27266262) for targets undergoing two-body ballistic motion. 
+
+
 
 ## Kinematic model
 
-To simplify the question, we only use reference coordinates to describe the earth, the orbit of target, the reference coordinates of radar, and the target body axis, which means we lack the geoscience description, but they are sufficient to describe the procession of a micro-motion target movement.
+To simplify the question, we only use reference coordinates to describe the earth, the orbit of target, the reference coordinates of radar, and the target body axis, which means we lack the geoscience description, but they are sufficient to describe the procession of a ballistic micro-motion conical target movement.
 
 Firstly, the orbit of target is only decided by the release velocity $v$ and position $r$, which means we can use them to calculate orbit elements: 
 
@@ -58,7 +63,25 @@ With those elements and the position of release, the flight procession can be pl
     </tr>
 </table>
 
-Now, let's consider the attitude of the target. Taking the conical target in the figure below as an example, we assume that the re-entry direction of the target is fixed (as designed), with its head pointing towards the ground, which means the warhead should be oriented below the y-axis (with the orbit in the $YOZ$ plane). Due to spin stabilization, the precession axis will remain fixed in inertial space. (TODO: add rotated figure.)
+By restricting the ground radar observation positions and the observed trajectories, corresponding scenarios for the training and testing datasets can be constructed.
+
+<table>
+    <tr>
+        <td style="text-align: center;">
+            <img src="./figure/train_orbit.png" alt="Image 1" width="500" />
+            <br>
+            <i>Training Dataset.</i>
+        </td>
+        <td style="text-align: center;">
+            <img src="./figure/test_orbit.png" alt="Image 2" width="500" />
+            <br>
+            <i>Testing Dataset.</i>
+        </td>
+    </tr>
+</table>
+
+
+Now, let's consider the attitude of the target. Taking the conical target in the figure below as an example, we assume that the re-entry direction of the target is fixed (as designed), with its head pointing towards the ground, which means the warhead should be oriented below the y-axis (with the orbit in the $YOZ$ plane). Due to spin stabilization, the precession axis will remain fixed in inertial space.
 
 <table>
     <tr>
@@ -68,12 +91,13 @@ Now, let's consider the attitude of the target. Taking the conical target in the
             <i>Origin</i>
         </td>
         <td style="text-align: center;">
-            <img src="./figure/output.png" alt="Image 2" width="300"/>
+            <img src="./figure/output1.png" alt="Image 2" width="300"/>
             <br>
             <i>Rotated</i>
         </td>
     </tr>
 </table>
+
 
 Adding micro-motion to the existing attitude results in the final model.
 
@@ -101,3 +125,8 @@ Adding micro-motion to the existing attitude results in the final model.
 
 ## Electromagnetic simulation
 
+The simulation method is based on the physical optics (PO) approach. A total of four types of targets are used for classification, and their structures are referenced in [[1]](Recognition of Micro-Motion Space Targets Based on Attention-Augmented Cross-Modal Feature Fusion Recognition Network), [[2]](https://ieeexplore.ieee.org/document/9691916/). Similar structures have also been used in many other studies.
+
+![image-20241023183741395](C:\Users\cherium\AppData\Roaming\Typora\typora-user-images\image-20241023183741395.png)
+
+For more details, please read generator code.

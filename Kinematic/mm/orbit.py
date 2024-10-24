@@ -4,9 +4,42 @@ import matplotlib.pyplot as plt
 import numpy as np
 from PIL import Image
 import io
+from mpl_toolkits.mplot3d import Axes3D
 
 def orbit_info():
     print('include all orbit stuff.')
+
+def plot_earth(bad, R = 6371e3, simplify = True):
+    # ------------------------------------ info -----------------------------------------------
+    # Need to create a figure bad like: 
+    # fig = plt.figure(figsize=(8, 8))
+    # ax = fig.add_subplot(111, projection='3d')
+    # Usage:
+    # plot_earth(bad = ax, R = 6371e3)
+    # -----------------------------------------------------------------------------------------
+    # create sphere data.
+    u = np.linspace(0, 2 * np.pi, 100)
+    v = np.linspace(0, np.pi, 100)
+    x = R * np.outer(np.cos(u), np.sin(v))
+    y = R * np.outer(np.sin(u), np.sin(v))
+    z = R * np.outer(np.ones(np.size(u)), np.cos(v)) 
+    # plot white 
+    if simplify:
+        ax.plot_surface(x, y, z, color='white', edgecolor='black', linewidth=0.1, alpha=0.3)
+    else:
+        bm = Image.open('./earth_texture.jpg')
+        bm = np.array(bm.resize([500,250]))/256
+        lons = np.linspace(-180, 180, bm.shape[1]) * np.pi/180 
+        lats = np.linspace(-90, 90, bm.shape[0])[::-1] * np.pi/180 
+
+        x = R*np.outer(np.cos(lons), np.cos(lats)).T
+        y = R*np.outer(np.sin(lons), np.cos(lats)).T
+        z = R*np.outer(np.ones(np.size(lons)), np.sin(lats)).T
+
+        
+
+
+
 
 
 def orbital_elements(r0, v0, printall):

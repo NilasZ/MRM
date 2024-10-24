@@ -16,7 +16,7 @@ The purpose of creating this dataset is straightforward: existing research does 
 
 This dataset (and the additional versions it includes) can be applied to a variety of tasks. Here, I will only list some of the prior research; for detailed examples, please refer to these papers.
 
-- Create new models for radar target recognition. Related work includes:[[1]](Recognition of Micro-Motion Space Targets Based on Attention-Augmented Cross-Modal Feature Fusion Recognition Network), [[2]](https://ieeexplore.ieee.org/document/9691916/), [[3]](https://ieeexplore.ieee.org/document/10281917/), [[4]](https://ieeexplore.ieee.org/document/10431715/). 
+- Create new models for radar target recognition. Related work includes:[[1]](https://ieeexplore.ieee.org/document/10124243/), [[2]](https://ieeexplore.ieee.org/document/9691916/), [[3]](https://ieeexplore.ieee.org/document/10281917/), [[4]](https://ieeexplore.ieee.org/document/10431715/). 
 - Generate data using a small amount of existing data to improve classification accuracy (since such observational data is difficult to obtain in real-world scenarios). Related work includes: [[5]](https://www.mdpi.com/2072-4292/15/21/5085).
 
 - Micro-motion parameter estimation. Related work includes: [[6]](https://www.mdpi.com/2072-4292/14/15/3691).

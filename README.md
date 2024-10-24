@@ -27,7 +27,7 @@ Of course, these research directions are just broad summaries. Various detailed 
 
 The most commonly used method for dataset construction in existing papers is similar to the process shown in the following figure, which is clipped from [[4\]](https://ieeexplore.ieee.org/document/10431715/). Generally, the process is divided into three main steps: static electromagnetic calculations, generating dynamic aspect angle sequences (also referred to as attitude sequences), and producing echoes using interpolation functions. In these experiments, the sampling interval for static electromagnetic calculations is typically set to 0.1 (though 0.2 is also used in some cases). The target's motion trajectory varies, including static, linear motion, and ballistic motion. The interpolation functions used are often not clearly described in the papers. These inconsistencies undoubtedly increase the difficulty of reproducing the experiments, not to mention that electromagnetic simulations are already extremely time-consuming tasks.
 
-![image-20241023175650502](.\figure\1.png)
+![image-20241023175650502](./figure/1.png)
 
 In this project, we directly provide [fully polarized electromagnetic simulation data](https://figshare.com/articles/dataset/Static_electric_field_data_of_four_types_of_targets_/27247074?file=49844442) based on the physical optics (PO) method, as well as [a dataset of aspect angle sequences](https://figshare.com/articles/dataset/Aspect_angle_sequences_of_ballistic_conical_targets_/27266262) for targets undergoing two-body ballistic motion. 
 

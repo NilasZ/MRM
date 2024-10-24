@@ -129,4 +129,4 @@ The simulation method is based on the physical optics (PO) approach. A total of 
 
 ![image-20241023183741395](./figure/2.png)
 
-For more details, please read generator code.
+Note: All the code required for data generation has been uploaded. However, the code related to visualization will not be updated in the near future.

@@ -1,0 +1,11 @@
+/Dataset/
+/StaticData/
+/Los_data/
+/__pycache__/
+
+*.pth
+*.zip
+*.7z
+*.pkl
+*.npy
+*.csv

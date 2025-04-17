@@ -185,15 +185,17 @@ def get_los(ang_x_int, ang_y_int, ang_z_int, alpha, belta, freq, amp_n , T, poin
         r_interval.append(r_inertial)
         c_interval.append(ref_central_axis)
 
+    radar_warhead = []
     los_rad = []
     los_deg = []
     for i in range(len(r_interval)):
         vector_a = radar_position - r_interval[i]
         angle_rad, angle_deg = angle_between_vectors(vector_a, c_interval[i] )
+        radar_warhead.append(vector_a)
         los_rad.append(angle_rad)
         los_deg.append(angle_deg)
     
-    return np.array(los_rad), np.array(los_deg)
+    return np.array(los_rad), np.array(los_deg), radar_warhead
 
 def awgn(signal, snr, seed=0):
     """

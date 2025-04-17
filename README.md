@@ -6,7 +6,6 @@
 >
 > - fix plot ticks.
 > - experiment example guide.
-> - code validation & upload.
 
 ## Introduction
 
@@ -129,4 +128,14 @@ The simulation method is based on the physical optics (PO) approach. A total of 
 
 ![image-20241023183741395](./figure/2.png)
 
-Note: All the code required for data generation has been uploaded. However, the code related to visualization will not be updated in the near future.
+## Automatic Dataset Generation
+
+he `DownloadDataset.ipynb` notebook, located in the `Generation` folder, provides a streamlined process to automatically download and generate the radar dataset from Figshare. This script generates **fully-polarized radar data (HH, HV, VH, VV)** with an observation duration of **0.5 seconds** for each instance by default.
+
+You can also generate the **full 2-second dataset** by modifying the indexing of the radar line-of-sight (LOS) angle sequence in the script.
+
+> **Note:** Generating the dataset with 0.5s observation requires at least **170 GB** of free disk space. Please ensure sufficient storage is available before proceeding.
+
+All classification experiments in the `Example` folder are based on the **0.5-second radar dataset**. To run these scripts, you must first **generate the dataset locally** using the provided tools.
+
+**Note:** The updated visualization script will be released in an upcoming update.
